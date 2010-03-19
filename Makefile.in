@@ -1,0 +1,30 @@
+SHELL = /bin/sh
+
+bindir = @bindir@
+datadir = @datadir@
+
+TARGET	= libhypercall
+SRCS	= libhypercall.c
+OBJS	= libhypercall.o
+
+CC = @CC@
+DEFS = @DEFS@
+LIBS = @LIBS@
+
+#INSTALL = @INSTALL@
+#INSTALL_PROGRAM = @INSTALL_PROGRAM@
+#INSTALL_DATA = @INSTALL_DATA@
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LIBS)
+
+.c.o:
+	$(CC) $(DEFS) -c -o $@ $<
+
+install: $(TARGET)
+	$(INSTALL_PROGRAM) $< $(bindir)
+
+clean: 
+	rm -rf $(OBJS) $(TARGET)
